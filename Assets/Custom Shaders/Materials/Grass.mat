@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SimpleWaterSurface
-  m_Shader: {fileID: 4800000, guid: 54d09d62133937d45ae12eb2570343a9, type: 3}
+  m_Name: Grass
+  m_Shader: {fileID: 4800000, guid: 4a63576fafef14b4793f783d31012ea7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -65,6 +65,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Amplitude: 0.1
+    - _BendAngle: 1
+    - _BladeHeight: 1
+    - _BladeHeightRandom: 1
+    - _BladeWidth: 0.3
+    - _BladeWidthRandom: 0.518
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DepthBand: 10
@@ -85,11 +90,14 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Strength: 0.1
+    - _TessellationUniform: 0.2
     - _UVSec: 0
     - _WaveTurbulence: 1
     - _ZWrite: 1
     m_Colors:
+    - _BottomColor: {r: 1, g: 0.43867922, b: 0.43867922, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0, g: 1, b: 1, a: 0}
+    - _TopColor: {r: 0.21698111, g: 0, b: 0, a: 1}
     - _WaterColor: {r: 0, g: 1, b: 1, a: 0}
