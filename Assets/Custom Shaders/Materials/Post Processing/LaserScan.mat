@@ -68,6 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Active: 0
     - _Amplitude: 0.1
     - _BendAngle: 0.5
     - _BladeHeight: 0.464
@@ -101,8 +102,8 @@ Material:
     - _TessellationUniformEdge: 10
     - _TessellationUniformInside: 1
     - _UVSec: 0
-    - _WaveDistance: 48.04
-    - _WaveTrail: 5
+    - _WaveDistance: 30
+    - _WaveTrail: 0.01
     - _WaveTurbulence: 1
     - _WindSpeed: 0.01
     - _WindStrength: 1
@@ -112,8 +113,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0, g: 1, b: 1, a: 0}
-    - _MousePos: {r: 0.92784256, g: 2.2797928, b: 0, a: 0}
-    - _PlayerPos: {r: -30, g: -7.25, b: -5.186, a: 0}
+    - _MousePos: {r: 0.92346936, g: 2.284974, b: 0, a: 0}
+    - _PlayerPos: {r: -35.075344, g: -8.560291, b: -14.142214, a: 0}
     - _Radius: {r: 0.14577259, g: 0.25906736, b: 0, a: 0}
     - _TopColor: {r: 0.68235296, g: 0.87843144, b: 0.33333334, a: 1}
     - _WaterColor: {r: 0, g: 1, b: 1, a: 0}

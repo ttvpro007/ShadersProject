@@ -1,0 +1,61 @@
+﻿/// Compute shader
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+#pragma kernel InitParticles
+#pragma kernel MoveParticles
+#pragma kernel DisplayParticles
+#pragma kernel ClearDisplay
+
+struct Particle
+{
+    float posX;
+    float posY;
+    float velX;
+    float velY;
+};
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+int numberOfParticles;
+float initialSpeed;
+float dt;
+RWTexture2D<float4> Result;
+RWStructuredBuffer<Particle> particleBuffer;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+
+    Result[id.xy] = float4(id.x / 1920.0, id.y / 1920.0, 0, 1);
+}
+
+[numthreads(64, 1, 1)]
+void InitParticles(uint3 id : SV_DispatchThreadID)
+{
+    particleBuffer[id.x].posX = 1920.0 / 2;
+    particleBuffer[id.x].posY = 0;
+    float theta = 3.14 * id.x / numberOfParticles;
+    particleBuffer[id.x].velX = initialSpeed * cos(theta);
+    particleBuffer[id.x].velY = initialSpeed * sin(theta);
+}
+
+[numthreads(64, 1, 1)]
+void MoveParticles(uint3 id : SV_DispatchThreadID)
+{
+	particleBuffer[id.x].velY -= 9.8 * dt;
+    particleBuffer[id.x].posX += particleBuffer[id.x].velX * dt;
+    particleBuffer[id.x].posY += particleBuffer[id.x].velY * dt;
+}
+
+[numthreads(64, 1, 1)]
+void DisplayParticles(uint3 id : SV_DispatchThreadID)
+{
+    Result[float2(particleBuffer[id.x].posX, particleBuffer[id.x].posY)] = float4(1, 0, 0, 1);
+}
+
+[numthreads(8, 8, 1)]
+void ClearDisplay(uint3 id : SV_DispatchThreadID)
+{
+    Result[id.xy] = float4(0, 0, 0, 1);
+}
