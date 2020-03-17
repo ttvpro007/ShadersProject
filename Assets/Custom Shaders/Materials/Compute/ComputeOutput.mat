@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LaserScan
-  m_Shader: {fileID: 4800000, guid: e4227fe060976bc4788aa00b0825952f, type: 3}
+  m_Name: ComputeOutput
+  m_Shader: {fileID: 4800000, guid: cb6adc7abecd2f24996c9175ac38866c, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,10 +20,6 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _CubeMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -51,10 +47,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: aa91a509b88ed1b4997bf61758df3112, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -63,59 +55,23 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _WindTex:
-        m_Texture: {fileID: 2800000, guid: 94b012132b6bff248b35993500a15fbb, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Active: 0
-    - _Amplitude: 0.1
-    - _BendAngle: 0.5
-    - _BladeHeight: 0.464
-    - _BladeHeightRandom: 1
-    - _BladeWidth: 0
-    - _BladeWidthRandom: 0.099
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DepthBand: 10
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FoamDepth: 0.5
-    - _Frequency: 100
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _MouseX: 0.93367344
-    - _MouseY: 2.2823834
-    - _NoiseScale: 30
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PhaseMultiplier: 10
-    - _Radius: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Strength: 50
-    - _TessellationUniform: 0.2
-    - _TessellationUniformEdge: 10
-    - _TessellationUniformInside: 1
     - _UVSec: 0
-    - _WaveDistance: 30
-    - _WaveTrail: 0.01
-    - _WaveTurbulence: 1
-    - _WindSpeed: 0.01
-    - _WindStrength: 1
     - _ZWrite: 1
     m_Colors:
-    - _BottomColor: {r: 0.18823531, g: 0.3529412, b: 0.003921569, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FoamColor: {r: 0, g: 1, b: 1, a: 0}
-    - _MousePos: {r: 0.92784256, g: 2.2797928, b: 0, a: 0}
-    - _PlayerPos: {r: -29.811152, g: 27.38763, b: -10, a: 0}
-    - _Radius: {r: 0.14577259, g: 0.25906736, b: 0, a: 0}
-    - _TopColor: {r: 0.68235296, g: 0.87843144, b: 0.33333334, a: 1}
-    - _WaterColor: {r: 0, g: 1, b: 1, a: 0}
-    - _WaveColor: {r: 1, g: 0, b: 0, a: 1}

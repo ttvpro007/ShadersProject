@@ -53,10 +53,7 @@
             {
                 v2f o;
 				o.uv = v.uv;
-				//v.vertex.xyz += v.normal * _OutlineWidth;
-				v.vertex.x += v.normal * _OutlineWidth * 2 * sin(v.uv.y * 10000 + _Time * 10);
-				v.vertex.y += v.normal * _OutlineWidth * 2 * cos(v.uv.y * 10000 + _Time * 10);
-				v.vertex.z += v.normal * _OutlineWidth;
+				v.vertex.xyz += v.normal * _OutlineWidth * 2 * cos(v.uv.x * 10000 + _Time * 10) * sin(v.uv.y * 10000 + _Time * 10);
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 return o;
             }

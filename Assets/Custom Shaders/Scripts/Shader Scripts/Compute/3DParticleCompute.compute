@@ -1,0 +1,83 @@
+﻿#pragma kernel InitParticles
+#pragma kernel MoveParticles
+
+struct Particle3D
+{
+	float posX;
+	float posY;
+	float posZ;
+	float velX;
+	float velY;
+	float velZ;
+	float life;
+};
+
+int numberOfParticles;
+int batchID;
+int batchSize;
+int numberOfRings;
+float boundary;
+float initialSpeed;
+float verticalAcceleration;
+float maxLife;
+float dt;
+float posX;
+float posY;
+float posZ;
+RWStructuredBuffer<Particle3D> particleBuffer;
+
+[numthreads(64, 1, 1)]
+void InitParticles(uint3 id : SV_DispatchThreadID)
+{
+	//particleBuffer[id.x + batchID].posX = 1920.0 / 2;
+	particleBuffer[id.x + batchID].posX = posX;
+	particleBuffer[id.x + batchID].posY = posY;
+	particleBuffer[id.x + batchID].posY = posZ;
+	float ringNo = floor(id.x / batchSize);
+	float omega = ringNo * 2 * 3.14 / numberOfRings - 3.14;
+	float theta = 2 * 3.14 * id.x / batchSize;
+	particleBuffer[id.x + batchID].velX = initialSpeed * cos(theta) * cos(omega);
+	particleBuffer[id.x + batchID].velY = initialSpeed * sin(theta) * cos(omega);
+	particleBuffer[id.x + batchID].velZ = initialSpeed * sin(omega);
+
+	particleBuffer[id.x + batchID].life = maxLife;;
+}
+
+[numthreads(64, 1, 1)]
+void MoveParticles(uint3 id : SV_DispatchThreadID)
+{
+	if (particleBuffer[id.x].life > 0)
+	{
+
+	particleBuffer[id.x].velY += verticalAcceleration * dt;
+	particleBuffer[id.x].posX += particleBuffer[id.x].velX * dt;
+	particleBuffer[id.x].posY += particleBuffer[id.x].velY * dt;
+	particleBuffer[id.x].posZ += particleBuffer[id.x].velZ * dt;
+	particleBuffer[id.x].life -= dt;
+
+	// X
+		if (particleBuffer[id.x].posX > boundary * 0.5  && particleBuffer[id.x].velX > 0 ||
+			particleBuffer[id.x].posX <= -boundary * 0.5  && particleBuffer[id.x].velX < 0)
+		{
+			particleBuffer[id.x].velX *= -1;
+		}
+		// Y
+		if (particleBuffer[id.x].posY <= -boundary * 0.5 && particleBuffer[id.x].velY < 0 ||
+			particleBuffer[id.x].posY > boundary * 0.5 && particleBuffer[id.x].velY > 0)
+		{
+			particleBuffer[id.x].velY *= -1;
+		}
+		// Z
+		if (particleBuffer[id.x].posZ > boundary * 0.5  && particleBuffer[id.x].velZ > 0 ||
+			particleBuffer[id.x].posZ <= -boundary * 0.5  && particleBuffer[id.x].velZ < 0)
+		{
+			particleBuffer[id.x].velZ *= -1;
+		}
+	}
+	else
+	{
+		particleBuffer[id.x].posX = posX;
+		particleBuffer[id.x].posY = posY;
+		particleBuffer[id.x].posZ = posZ;
+	}
+}

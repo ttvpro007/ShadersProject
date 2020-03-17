@@ -17,8 +17,19 @@ struct Particle
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 int numberOfParticles;
+int batchID;
+int batchSize;
 float initialSpeed;
+float verticalAcceleration;
 float dt;
+float mousePosX;
+float mousePosY;
+// obstacle
+float wallYMin;
+float wallYMax;
+float wallXMin;
+float wallXMax;
+float wallThickness;
 RWTexture2D<float4> Result;
 RWStructuredBuffer<Particle> particleBuffer;
 
@@ -33,19 +44,60 @@ void CSMain (uint3 id : SV_DispatchThreadID)
 [numthreads(64, 1, 1)]
 void InitParticles(uint3 id : SV_DispatchThreadID)
 {
-    particleBuffer[id.x].posX = 1920.0 / 2;
-    particleBuffer[id.x].posY = 0;
-    float theta = 3.14 * id.x / numberOfParticles;
-    particleBuffer[id.x].velX = initialSpeed * cos(theta);
-    particleBuffer[id.x].velY = initialSpeed * sin(theta);
+    //particleBuffer[id.x + batchID].posX = 1920.0 / 2;
+    particleBuffer[id.x + batchID].posX = mousePosX;
+    particleBuffer[id.x + batchID].posY = mousePosY;
+    float theta = 2 * 3.14 * id.x / batchSize;
+    particleBuffer[id.x + batchID].velX = initialSpeed * cos(theta);
+    particleBuffer[id.x + batchID].velY = initialSpeed * sin(theta);
 }
 
 [numthreads(64, 1, 1)]
 void MoveParticles(uint3 id : SV_DispatchThreadID)
 {
-	particleBuffer[id.x].velY -= 9.8 * dt;
+
+	particleBuffer[id.x].velY += verticalAcceleration * dt;
     particleBuffer[id.x].posX += particleBuffer[id.x].velX * dt;
     particleBuffer[id.x].posY += particleBuffer[id.x].velY * dt;
+
+	// outer boundary
+	if ((particleBuffer[id.x].posY <= 0 && particleBuffer[id.x].velY < 0) ||
+		(particleBuffer[id.x].posY >= 1920.0 && particleBuffer[id.x].velY > 0))
+	{
+		particleBuffer[id.x].velY *= -1;
+	}
+	if ((particleBuffer[id.x].posX >= 1920.0 && particleBuffer[id.x].velX > 0) ||
+		(particleBuffer[id.x].posX <= 0 && particleBuffer[id.x].velX < 0))
+	{
+		particleBuffer[id.x].velX *= -1;
+	}
+
+	// inner boundary
+	if (particleBuffer[id.x].posX >= wallXMin && particleBuffer[id.x].posX <= wallXMax &&
+		particleBuffer[id.x].posY >= wallYMin && particleBuffer[id.x].posY <= wallYMax)
+	{
+		// top & bottom
+		if (particleBuffer[id.x].posX > wallXMin + wallThickness && particleBuffer[id.x].posX < wallXMax - wallThickness)
+		{
+			particleBuffer[id.x].velY *= -1;
+		}
+		
+		// left & right
+		if (particleBuffer[id.x].posY > wallYMin + wallThickness && particleBuffer[id.x].posY < wallYMax - wallThickness)
+		{
+			particleBuffer[id.x].velX *= -1;
+		}
+
+		// corners
+		if ((particleBuffer[id.x].posY - wallYMin <= wallThickness && particleBuffer[id.x].posX - wallXMin <= wallThickness) ||
+			(particleBuffer[id.x].posY - wallYMin <= wallThickness && wallXMax - particleBuffer[id.x].posX <= wallThickness) ||
+			(wallYMax - particleBuffer[id.x].posY <= wallThickness && wallXMax - particleBuffer[id.x].posX <= wallThickness) ||
+			(wallYMax - particleBuffer[id.x].posY <= wallThickness && particleBuffer[id.x].posX - wallXMin <= wallThickness))
+		{
+			particleBuffer[id.x].velX *= -1;
+			particleBuffer[id.x].velY *= -1;
+		}
+	}
 }
 
 [numthreads(64, 1, 1)]

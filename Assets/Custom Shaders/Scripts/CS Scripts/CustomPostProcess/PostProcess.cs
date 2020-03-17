@@ -21,6 +21,10 @@ public class PostProcess : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+
+        }
         //material.SetVector("_MousePos", new Vector4(Input.mousePosition.x / Screen.width, Input.mousePosition.y / Screen.height, 0, 0));
     }
 
