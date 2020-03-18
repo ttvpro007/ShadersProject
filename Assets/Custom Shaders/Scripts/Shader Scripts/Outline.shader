@@ -27,14 +27,21 @@
             #include "UnityCG.cginc"
 			
 			sampler2D _OutlineTex;
+			float4 _OutlineTex_ST;
             float _OutlineWidth;
 			
 			sampler2D _NoiseTex;
 			float4 _NoiseTex_ST;
+
 			float _NoiseScale;
 			float _Amplitude;
 			float _Frequency;
 			float _PhaseMultiplier;
+
+			float rand(float3 co)
+			{
+				return frac(sin(dot(co.xyz, float3(12.9898, 78.233, 53.539))) * 43758.5453);
+			}
 
             struct appdata
             {
@@ -53,7 +60,7 @@
             {
                 v2f o;
 				o.uv = v.uv;
-				v.vertex.xyz += v.normal * _OutlineWidth * 2 * cos(v.uv.x * 10000 + _Time * 10) * sin(v.uv.y * 10000 + _Time * 10);
+				v.vertex.xyz += v.normal * _OutlineWidth * 2 * cos(v.uv.x * 10000 + _Time * 10) * sin(v.uv.y * 10000 + _Time * 10) * rand(v.vertex.xyz);
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 return o;
             }

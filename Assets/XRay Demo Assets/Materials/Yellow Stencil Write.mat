@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Green Stencil Write
+  m_Name: Yellow Stencil Write
   m_Shader: {fileID: 4800000, guid: 3710351f4949d3749ba82cad2647379f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -25,4 +25,4 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - _Color: {r: 0.49803925, g: 0.7294118, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.7254902, b: 0, a: 1}

@@ -79,7 +79,7 @@ Material:
     - _Mode: 0
     - _NoiseScale: 50
     - _OcclusionStrength: 1
-    - _OutlineWidth: 0.3
+    - _OutlineWidth: 0.35
     - _Parallax: 0.02
     - _PhaseMultiplier: 30
     - _SmoothnessTextureChannel: 0

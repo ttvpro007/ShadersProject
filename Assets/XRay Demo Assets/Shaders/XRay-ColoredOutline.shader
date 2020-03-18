@@ -13,7 +13,7 @@ Shader "XRay Shaders/ColoredOutline"
 		Stencil
 		{
 			Ref 0
-			Comp NotEqual
+			Comp Always
 		}
 
 		Tags
