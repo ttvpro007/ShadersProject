@@ -5,12 +5,16 @@
         _MainTex ("Texture", 2D) = "white" {}
 		_OutlineTex ("Outline Texture", 2D) = "white" {}
         _OutlineWidth ("Outline Width", Range(0, 1)) = 1
+		_OutlineAmplitude("Outline Amplitude", Float) = 1
+		_OutlineFrequency("Outline Frequency", Float) = 1
+		_OutlinePhaseMultiplier ("Outline Phase Multifplier", Float) = 1
+
 
 		_NoiseTex("Noise Texture", 2D) = "white" {}
-		_NoiseScale("Noise Scale", Float) = 1
-		_Amplitude("Amplitude", Float) = 0
-		_Frequency("Frequency", Float) = 0
-		_PhaseMultiplier("Phase Multiplier", Float) = 0
+		_NoiseScale("Noise Scale", Float) = 50
+		_Amplitude("Amplitude", Float) = 0.1
+		_Frequency("Frequency", Float) = 200
+		_PhaseMultiplier("Phase Multiplier", Float) = 30
     }
     SubShader
     {
@@ -29,6 +33,9 @@
 			sampler2D _OutlineTex;
 			float4 _OutlineTex_ST;
             float _OutlineWidth;
+			float _OutlineAmplitude;
+			float _OutlineFrequency;
+			float _OutlinePhaseMultiplier;
 			
 			sampler2D _NoiseTex;
 			float4 _NoiseTex_ST;
@@ -60,7 +67,12 @@
             {
                 v2f o;
 				o.uv = v.uv;
-				v.vertex.xyz += v.normal * _OutlineWidth * 2 * cos(v.uv.x * 10000 + _Time * 10) * sin(v.uv.y * 10000 + _Time * 10) * rand(v.vertex.xyz);
+				
+				v.vertex.xyz += v.normal * _OutlineWidth * 
+					sin(v.uv.x * _OutlinePhaseMultiplier + _Time * _OutlineFrequency) * 
+					cos(v.uv.y * _OutlinePhaseMultiplier + _Time * _OutlineFrequency) * 
+					rand(v.vertex.xyz) * _OutlineAmplitude;
+
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 return o;
             }
