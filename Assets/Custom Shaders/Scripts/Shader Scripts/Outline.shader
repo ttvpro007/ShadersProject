@@ -4,10 +4,10 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 		_OutlineTex ("Outline Texture", 2D) = "white" {}
-        _OutlineWidth ("Outline Width", Range(0, 1)) = 1
-		_OutlineAmplitude("Outline Amplitude", Float) = 1
-		_OutlineFrequency("Outline Frequency", Float) = 1
-		_OutlinePhaseMultiplier ("Outline Phase Multifplier", Float) = 1
+        _OutlineWidth ("Outline Width", Range(0, 1)) = 0.5
+		_OutlineAmplitude("Outline Amplitude", Float) = 0.05
+		_OutlineFrequency("Outline Frequency", Float) = 5
+		_OutlinePhaseMultiplier ("Outline Phase Multifplier", Float) = 100
 
 
 		_NoiseTex("Noise Texture", 2D) = "white" {}
